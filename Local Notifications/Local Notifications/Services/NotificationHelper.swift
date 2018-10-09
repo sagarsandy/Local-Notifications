@@ -26,7 +26,50 @@ class NotificationHelper : NSObject {
                 print("User permission denied")
                 return
             }
+            
+            self.notifictionCenter.delegate = self
         }
+    }
+    
+    func timerNotification(interval: TimeInterval) {
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Time up!!"
+        content.body = "Submit the quiz !!"
+        content.sound = .default
+        content.badge = 1
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
+        let request = UNNotificationRequest(identifier: "timerNotification", content: content, trigger: trigger)
+        
+        notifictionCenter.add(request)
+    }
+    
+    func dateNotification(dateComponent: DateComponents) {
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Birthday!!"
+        content.body = "Yay.. It's your b'day today"
+        content.sound = .default
+        content.badge = 1
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: true)
+        let request = UNNotificationRequest(identifier: "dateNotification", content: content, trigger: trigger)
+        
+        notifictionCenter.add(request)
+    }
+    
+    func locationNotification(latitude: Double, longitude: Double) {
+        
+        let content = UNMutableNotificationContent()
+        content.title = "New Location"
+        content.body = "You entered a new location with Lat \(latitude) and Long \(longitude)"
+        content.sound = .default
+        content.badge = 1
+
+        let request = UNNotificationRequest(identifier: "locationNotification", content: content, trigger: nil)
+
+        notifictionCenter.add(request)
     }
 }
 

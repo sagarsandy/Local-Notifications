@@ -16,6 +16,8 @@ class ViewController: UIViewController {
         
         // Asking user to give permission for local notifications
         NotificationHelper.shared.validateAuthorizePermission()
+        LocationHelper.shared.validateAuthorizePermission()
+        
     }
     
     
@@ -23,14 +25,23 @@ class ViewController: UIViewController {
     // MARK: IBActions
     @IBAction func timerNotificationButtonPressed(_ sender: UIButton) {
         
+        NotificationHelper.shared.timerNotification(interval: 5)
+        
     }
     
     @IBAction func DateNotificationButtonPressed(_ sender: UIButton) {
+        
+        var components = DateComponents()
+        components.second = 0
+        
+        NotificationHelper.shared.dateNotification(dateComponent: components)
         
     }
     
     @IBAction func locationNotificationButtonPressed(_ sender: UIButton) {
         
+        LocationHelper.shared.updateLocation()
     }
+    
 }
 

@@ -13,6 +13,7 @@
 		578AA7682169158C00F18969 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 578AA7672169158C00F18969 /* Assets.xcassets */; };
 		578AA76B2169158C00F18969 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 578AA7692169158C00F18969 /* LaunchScreen.storyboard */; };
 		578AA77721691C3B00F18969 /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578AA77621691C3B00F18969 /* NotificationHelper.swift */; };
+		57AE1522216C4D5B003D52B2 /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AE1521216C4D5B003D52B2 /* LocationHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		578AA76A2169158C00F18969 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		578AA76C2169158C00F18969 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		578AA77621691C3B00F18969 /* NotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHelper.swift; sourceTree = "<group>"; };
+		57AE1521216C4D5B003D52B2 /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		578AA7752169177900F18969 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				57AE1521216C4D5B003D52B2 /* LocationHelper.swift */,
 				578AA77621691C3B00F18969 /* NotificationHelper.swift */,
 			);
 			path = Services;
@@ -170,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57AE1522216C4D5B003D52B2 /* LocationHelper.swift in Sources */,
 				578AA77721691C3B00F18969 /* NotificationHelper.swift in Sources */,
 				578AA7632169158B00F18969 /* ViewController.swift in Sources */,
 				578AA7612169158B00F18969 /* AppDelegate.swift in Sources */,
@@ -318,7 +322,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Local Notifications/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -326,6 +331,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "sagarsandy492.Local-Notifications";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -335,7 +341,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Local Notifications/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -343,6 +350,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "sagarsandy492.Local-Notifications";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
