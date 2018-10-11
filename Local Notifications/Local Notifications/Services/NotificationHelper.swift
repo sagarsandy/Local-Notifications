@@ -28,7 +28,54 @@ class NotificationHelper : NSObject {
             }
             
             self.notifictionCenter.delegate = self
+            self.setActionsForNotifications()
         }
+    }
+    
+    func getNotificationAttachment(type: String) -> UNNotificationAttachment? {
+        
+        guard let url = Bundle.main.url(forResource: type, withExtension: "png") else { return nil }
+        
+        do {
+            
+            let attachment = try UNNotificationAttachment(identifier: type, url: url)
+            
+            return attachment
+            
+        } catch {
+            return nil
+        }
+        
+    }
+    
+    
+    func setActionsForNotifications() {
+        
+        let timerAction = UNNotificationAction(identifier: "timerAction",
+                                               title: "Ok Stop",
+                                               options: [.authenticationRequired])
+        
+        let dateAction = UNNotificationAction(identifier: "dateAction",
+                                              title: "Celebrate",
+                                              options: [.destructive])
+        
+        let locationAction = UNNotificationAction(identifier: "locationAction",
+                                                  title: "Explore",
+                                                  options: [.foreground])
+        
+        let timerCategory = UNNotificationCategory(identifier: "timerCat",
+                                                   actions: [timerAction],
+                                                   intentIdentifiers: [])
+        
+        let dateCategory = UNNotificationCategory(identifier: "dateCat",
+                                                   actions: [dateAction],
+                                                   intentIdentifiers: [])
+        
+        let locationCategory = UNNotificationCategory(identifier: "locationCat",
+                                                   actions: [locationAction],
+                                                   intentIdentifiers: [])
+        
+        notifictionCenter.setNotificationCategories([timerCategory, dateCategory, locationCategory])
     }
     
     func timerNotification(interval: TimeInterval) {
@@ -38,6 +85,11 @@ class NotificationHelper : NSObject {
         content.body = "Submit the quiz !!"
         content.sound = .default
         content.badge = 1
+        content.categoryIdentifier = "timerCat"
+        
+        if let attachment = getNotificationAttachment(type: "TimeAlert") {
+            content.attachments = [attachment]
+        }
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
         let request = UNNotificationRequest(identifier: "timerNotification", content: content, trigger: trigger)
@@ -52,8 +104,13 @@ class NotificationHelper : NSObject {
         content.body = "Yay.. It's your b'day today"
         content.sound = .default
         content.badge = 1
+        content.categoryIdentifier = "dateCat"
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: true)
+        if let attachment = getNotificationAttachment(type: "DateAlert") {
+            content.attachments = [attachment]
+        }
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
         let request = UNNotificationRequest(identifier: "dateNotification", content: content, trigger: trigger)
         
         notifictionCenter.add(request)
@@ -66,6 +123,11 @@ class NotificationHelper : NSObject {
         content.body = "You entered a new location with Lat \(latitude) and Long \(longitude)"
         content.sound = .default
         content.badge = 1
+        content.categoryIdentifier = "locationCat"
+        
+        if let attachment = getNotificationAttachment(type: "LocationAlert") {
+            content.attachments = [attachment]
+        }
 
         let request = UNNotificationRequest(identifier: "locationNotification", content: content, trigger: nil)
 
@@ -76,6 +138,8 @@ class NotificationHelper : NSObject {
 extension NotificationHelper : UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        NotificationCenter.default.post(name: NSNotification.Name("actionNotify"), object: response.actionIdentifier)
         
         print("Notification did recieve response called when app is in background or somw other state")
         
