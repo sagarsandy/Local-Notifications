@@ -17,48 +17,39 @@ class LocationHelper: NSObject {
     
     static let shared = LocationHelper()
     
-    let locationManager = CLLocationManager()
+    // Initializing location manager
+    lazy var locationManager = CLLocationManager()
     
+    //Location manager settings for asking current location of user
     func validateAuthorizePermission(){
-        
         locationManager.requestAlwaysAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
+        
+        
+        // To run location updateds in app background state we need to mention below line and "Required background modes" in info.plist file
+        locationManager.allowsBackgroundLocationUpdates = true
     }
     
+    // Location manager update location method
     func updateLocation() {
         locationManager.startUpdatingLocation()
     }
 }
 
+// MARK: Location manager delegete methods
 extension LocationHelper: CLLocationManagerDelegate {
     
+    // Once the user location is changed, this method wil be fired automatically
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         print("Got location")
-        
-        NotificationCenter.default.post(name: Notification.Name("enteredLocation"), object: locations)
-        
         print(locations.first!.timestamp)
         print(locations.first!.coordinate.latitude)
         print(locations.first!.coordinate.longitude)
         
+        // Calling notification manager method to display location related notification
         NotificationHelper.shared.locationNotification(latitude:locations.first!.coordinate.latitude , longitude: locations.first!.coordinate.longitude)
-        
-//        guard let currentLocation = locations.first else { return }
-//
-//        let region = CLCircularRegion(center: currentLocation.coordinate, radius: 20, identifier: "locationRegion")
-//        manager.startMonitoring(for: region)
     }
-    
-//    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-//
-//        print("Did enter region")
-//
-//        print(region)
-//
-//        NotificationCenter.default.post(name: Notification.Name("enteredRegion"), object: nil)
-//
-//    }
     
 }

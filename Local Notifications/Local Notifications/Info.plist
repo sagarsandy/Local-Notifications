@@ -41,9 +41,20 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationUsageDescription</key>
+	<string>We need your location for best interaction</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Hey.. need your location bro.. !!</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>We need your location for best interaction</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need your location</string>
+	<string>Hey.. need your location bro.. !!</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>I want to get your location Information in background</string>
+    
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>location</string>
+    </array>
 </dict>
 </plist>

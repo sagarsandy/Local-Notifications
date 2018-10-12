@@ -20,6 +20,8 @@ class ViewController: UIViewController {
         // Asking user to give permission for location usage
         LocationHelper.shared.validateAuthorizePermission()
         
+        // The above two methods can be called in appdelegete didfinishlaunch method too, but while launching minimum code execution will be better. SO called above two methods here.
+        
         // Added observer for notification action, whenever the user presses button in noitification, then this observer will fire the associated selector method
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationActions(_:)), name: NSNotification.Name("actionNotify"), object: nil)
         
@@ -28,12 +30,14 @@ class ViewController: UIViewController {
     
     
     // MARK: IBActions
+    //Clicking on timer notification butto will fire this action
     @IBAction func timerNotificationButtonPressed(_ sender: UIButton) {
         
         NotificationHelper.shared.timerNotification(interval: 5)
         
     }
     
+    //Clicking on date notification butto will fire this action
     @IBAction func DateNotificationButtonPressed(_ sender: UIButton) {
         
         var components = DateComponents()
@@ -43,12 +47,13 @@ class ViewController: UIViewController {
         
     }
     
+    //Clicking on location notification butto will fire this action
     @IBAction func locationNotificationButtonPressed(_ sender: UIButton) {
         
         LocationHelper.shared.updateLocation()
     }
     
-    
+    // MARK: Notification handler selector method
     // Whenever the notification action handled observer(mentioned in view didload) has some action, this method will be executed
     @objc func handleNotificationActions(_ sender : Notification) {
         
